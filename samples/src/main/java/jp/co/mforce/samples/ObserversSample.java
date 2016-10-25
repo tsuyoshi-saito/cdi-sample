@@ -12,7 +12,7 @@ import jp.co.mforce.samples.quarifier.Update;
 public class ObserversSample {
 
 	@Inject
-	Event<User> nonQualifierEvent;
+	Event<User> anyEvent;
 
 	@Inject
 	@Update
@@ -21,6 +21,11 @@ public class ObserversSample {
 	@Inject
 	@Insert
 	Event<User> insertEvent;
+
+	@Inject
+	@Insert
+	@Update
+	Event<User> insertOrUpdateEvent;
 
 	public static void main(String[] args) {
 		Weld weld = new Weld();
@@ -32,7 +37,8 @@ public class ObserversSample {
 
 	public void run() {
 		this.insertEvent.fire(new User().name("山田").age(30));
-		this.updateEvent.fire(new User().name("佐藤").age(56));
-		this.nonQualifierEvent.fire(new User().name("高橋").age(15));
+		this.updateEvent.fire(new User().name("鈴木").age(56));
+		this.anyEvent.fire(new User().name("五十嵐").age(15));
+		this.insertOrUpdateEvent.fire(new User().name("池田").age(15));
 	}
 }
